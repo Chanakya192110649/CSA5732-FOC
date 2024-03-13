@@ -1,24 +1,38 @@
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
 int main() {
-    int n, reversedN = 0, originalN;
+    char str[100];
+    int i, len;
+    int isPalindrome = 1; 
 
-    printf("Enter an integer: ");
-    scanf("%d", &n);
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
 
-    originalN = n;
+    
+    if (str[strlen(str) - 1] == '\n')
+        str[strlen(str) - 1] = '\0';
 
-   
-    while (n > 0) {
-        reversedN = reversedN * 10 + n % 10;
-        n /= 10;
+    
+    for (i = 0; str[i]; i++) {
+        str[i] = tolower(str[i]);
     }
 
+    len = strlen(str);
+
    
-    if (originalN == reversedN)
-        printf("%d is a palindrome.\n", originalN);
+    for (i = 0; i < len / 2; i++) {
+        if (str[i] != str[len - i - 1]) {
+            isPalindrome = 0; 
+            break;
+        }
+    }
+
+    if (isPalindrome)
+        printf("%s is a palindrome.\n", str);
     else
-        printf("%d is not a palindrome.\n", originalN);
+        printf("%s is not a palindrome.\n", str);
 
     return 0;
 }
